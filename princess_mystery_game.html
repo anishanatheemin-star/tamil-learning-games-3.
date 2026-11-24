@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Princess Mystery Boxes</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:'Trebuchet MS',Arial,sans-serif;background:linear-gradient(135deg,#fff1fa,#fce0f1,#f7d7ff);color:#7d286f;min-height:100vh;display:flex;justify-content:center;padding:20px}
+main{max-width:800px;width:100%;background:#fff9fd;border:3px solid #f0b5da;border-radius:26px;padding:24px;box-shadow:0 12px 35px #d59ac055;text-align:center}
+h1{margin:5px 0;color:#c3338a;font-size:clamp(25px,5vw,38px)}.subtitle{color:#a64c91;margin:8px 0 20px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.box{border:2px solid #f8c8e5;border-radius:16px;background:linear-gradient(145deg,#ffb8de,#f39ad0);color:#8c2879;padding:12px 5px;min-height:95px;cursor:pointer;box-shadow:0 4px 0 #d77bb7;transition:.15s}.box:hover{transform:translateY(-3px)}.box.open{background:linear-gradient(145deg,#e8c8f5,#dcb8ed);border-color:#d1a2e0;box-shadow:0 4px 0 #bb8bcf}.gift{font-size:26px;display:block}.num{font-size:22px;font-weight:bold}.label{font-size:11px;letter-spacing:1px}
+#reveal{margin:22px auto 12px;background:#fff;border:2px dashed #e6a6ce;border-radius:18px;padding:20px;min-height:130px;display:flex;flex-direction:column;justify-content:center;gap:8px}#reveal h2{margin:0;color:#c2388b;font-size:18px}#question{font-size:clamp(20px,4vw,27px);font-weight:bold;color:#74266a}.hint{color:#b05a99;font-size:14px}
+.progress{margin:15px auto;background:#f8e3f2;border-radius:20px;height:14px;max-width:500px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#e47cb8,#c889e5);transition:.25s}#count{font-weight:bold;color:#a63b87}.reset{border:0;border-radius:24px;background:#c83e91;color:white;font-size:16px;font-weight:bold;padding:12px 22px;cursor:pointer;margin:12px}.reset:hover{background:#a82e7b}.foot{font-size:13px;color:#ad619b;margin-top:10px}
+@media(max-width:520px){main{padding:15px}.grid{grid-template-columns:repeat(3,1fr);gap:8px}.box{min-height:82px;padding:8px}.label{font-size:10px}}
+</style></head><body><main>
+<h1>👑 Princess Mystery Boxes 🎀</h1><div class="subtitle">Choose a box to reveal a secret Tamil speaking question!</div>
+<div class="grid" id="grid"></div>
+<section id="reveal"><h2 id="title">✨ Pick a mystery box! ✨</h2><div id="question">Choose any number from 1 to 15</div><div class="hint" id="hint">Answer in Tamil — no wrong answers, just have fun!</div></section>
+<div id="count">Opened 0 / 15 boxes</div><div class="progress"><div class="bar" id="bar"></div></div><button class="reset" onclick="resetGame()">🔄 Play Again</button><div class="foot">🌷 Every Tamil answer earns a princess star! 🌷</div>
+</main><script>
+const qs=["What is your name?","How old are you?","What's your parents' name?","Which class are you studying in?","Which school do you go to?","Where do you live?","Who are there in your family?","Do you have a brother or sister?","What is your favourite colour?","What is your favourite food?","What is your favourite fruit?","What is your favourite cartoon?","What do you like to do in your free time?","Do you like playing games? What is your favourite game?","What do you want to become when you grow up?"];
+let opened=new Set(),current=-1;const grid=document.getElementById('grid');
+qs.forEach((q,i)=>{const b=document.createElement('button');b.className='box';b.id='box'+i;b.innerHTML=`<span class="gift">🎁</span><span class="num">${i+1}</span><span class="label">MYSTERY BOX</span>`;b.onclick=()=>openBox(i);grid.appendChild(b)});
+function openBox(i){current=i;opened.add(i);document.getElementById('box'+i).classList.add('open');document.getElementById('box'+i).innerHTML=`<span class="gift">💗</span><span class="num">${i+1}</span><span class="label">OPENED</span>`;document.getElementById('title').textContent=`✨ Box ${i+1} Revealed! ✨`;document.getElementById('question').textContent=qs[i];document.getElementById('hint').textContent='🌸 Your turn! Try answering in Tamil! 🌸';update()}
+function update(){document.getElementById('count').textContent=`Opened ${opened.size} / 15 boxes`;document.getElementById('bar').style.width=(opened.size/15*100)+'%'}
+function resetGame(){opened.clear();current=-1;qs.forEach((q,i)=>{let b=document.getElementById('box'+i);b.classList.remove('open');b.innerHTML=`<span class="gift">🎁</span><span class="num">${i+1}</span><span class="label">MYSTERY BOX</span>`});document.getElementById('title').textContent='✨ Pick a mystery box! ✨';document.getElementById('question').textContent='Choose any number from 1 to 15';document.getElementById('hint').textContent='Answer in Tamil — no wrong answers, just have fun!';update()}
+</script></main></body></html>
